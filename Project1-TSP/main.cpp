@@ -1,6 +1,11 @@
 #include <iostream>
+#include "TSPData.h"
 
+using namespace std;
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    TSPData tspData = TSPData();
+    tspData.showData();
+    tspData.getDataFromFile("tsp_10.txt");
+    tspData.showData();
     return 0;
 }
