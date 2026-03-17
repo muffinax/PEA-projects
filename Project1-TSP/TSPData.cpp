@@ -91,7 +91,6 @@ void TSPData::generateAsymetricData(int cities, int max){
         cout<<"Error - max path value <= 0"<<endl;
         return;
     }
-    srand(time(NULL));
     this->cities=cities;
     paths=new int*[cities];     //pointer array - memory allocation
 
@@ -118,7 +117,6 @@ void TSPData::generateSymetricData(int cities, int max){
         cout<<"Error - max path value <= 0"<<endl;
         return;
     }
-    srand(time(NULL));
     this->cities=cities;
 
     paths=new int*[cities];     //pointer array - memory allocation
@@ -151,3 +149,5 @@ void TSPData::clearData() {
     }
     cities=0;
 }
+
+int TSPData::getCities() {return cities;}

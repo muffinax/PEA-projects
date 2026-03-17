@@ -14,6 +14,7 @@ public:
     void getDataFromFile(const std::string& fileName);
     void showData();
     void clearData();
+    int getCities();
 };
 
 

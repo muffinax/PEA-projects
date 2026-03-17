@@ -5,4 +5,6 @@ set(CMAKE_CXX_STANDARD 23)
 
 add_executable(Project1_TSP main.cpp
         TSPData.cpp
-        TSPData.h)
+        TSPData.h
+        Algorithm.h
+)
