@@ -42,9 +42,9 @@ void TSPData::getDataFromFile(const string& fileName) {
         }
 
         paths=new int*[cities];     //pointer array - memory allocation
-        for(int n=0;n<cities;n++)   paths[n]= nullptr;
 
         for(int i=0; i<cities; i++){
+            paths[i]= nullptr;
             paths[i] = new int[cities];     //memory allocation - for each row
 
             for(int j=0; j<cities; j++){
@@ -55,11 +55,8 @@ void TSPData::getDataFromFile(const string& fileName) {
                     reader.close();
                     return;
                 }
-            }
-        }
 
-        for(int i=0; i<cities;i++){     //CHECKING SAVED VALUES
-            for(int j=i; j<cities; j++){
+                //CHECKING SAVED VALUES
                 if(i==j && paths[i][j]!=-1){    //values in [i][i] must be -1
                     cout<<"WRONG value in [" << i <<"]["<<j<<"] - values on the diagonal must be -1"<<endl;
                     clearData(); // clearing saved data
@@ -67,11 +64,6 @@ void TSPData::getDataFromFile(const string& fileName) {
                     return;
                 } else if(i!=j && paths[i][j]<=0){    //paths must be > 0
                     cout<<"WRONG value in [" << i <<"]["<<j<<"] - paths must be greater than zero"<<endl;
-                    clearData(); // clearing saved data
-                    reader.close();
-                    return;
-                } else if(i!=j && paths[i][j]!=paths[j][i]) {    //it must be a graph
-                    cout << "WRONG values in file - paths must be a graph" << endl;
                     clearData(); // clearing saved data
                     reader.close();
                     return;
@@ -84,6 +76,67 @@ void TSPData::getDataFromFile(const string& fileName) {
     }
     else{       //file never opened
         cout<<"Error - file " << fileName << " doesn't exist"<<endl;
+    }
+}
+
+void TSPData::generateAsymetricData(int cities, int max){
+    //clearing data
+    clearData();
+    //Checking values
+    if(cities<=0){
+        cout<<"Error - cities <= 0"<<endl;
+        return;
+    }
+    if(max<=0){
+        cout<<"Error - max path value <= 0"<<endl;
+        return;
+    }
+    srand(time(NULL));
+    this->cities=cities;
+    paths=new int*[cities];     //pointer array - memory allocation
+
+    for(int i=0; i<cities; i++) {
+        paths[i]= nullptr;
+        paths[i] = new int[cities];     //memory allocation - for each row
+
+        for(int j=0; j<cities; j++){
+            if(i!=j)    paths[i][j]=rand()%max+1;
+            else    paths[i][j]=-1;
+        }
+    }
+}
+
+void TSPData::generateSymetricData(int cities, int max){
+    //clearing data
+    clearData();
+    //Checking values
+    if(cities<=0){
+        cout<<"Error - cities <= 0"<<endl;
+        return;
+    }
+    if(max<=0){
+        cout<<"Error - max path value <= 0"<<endl;
+        return;
+    }
+    srand(time(NULL));
+    this->cities=cities;
+
+    paths=new int*[cities];     //pointer array - memory allocation
+
+    for (int i = 0; i < cities; i++) {
+        paths[i] = new int[cities];     //memory allocation - for each row
+        for(int j=0; j<cities; j++) paths[i][j] = 0; // 0 values
+    }
+
+    for(int i=0; i<cities; i++) {
+
+        for(int j=i; j<cities; j++){
+            if(i!=j) {
+                paths[i][j]=rand()%max+1;
+                paths[j][i]=paths[i][j];
+            }
+            else    paths[i][j]=-1;
+        }
     }
 }
 

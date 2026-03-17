@@ -5,7 +5,7 @@ using namespace std;
 int main() {
     TSPData tspData = TSPData();
     tspData.showData();
-    tspData.getDataFromFile("tsp_10.txt");
+    tspData.generateAsymetricData(10,105);
     tspData.showData();
     return 0;
 }

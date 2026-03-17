@@ -9,7 +9,8 @@ private:
 public:
     TSPData();
     ~TSPData();
-    void generateData(int cities);
+    void generateAsymetricData(int cities, int max);
+    void generateSymetricData(int cities, int max);
     void getDataFromFile(const std::string& fileName);
     void showData();
     void clearData();
