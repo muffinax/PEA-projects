@@ -1,0 +1,6 @@
+# ninja log v5
+7	1153	7954783869039297	CMakeFiles/Project1_TSP.dir/TSPData.cpp.obj	7ea05498fd89f8b1
+0	1160	7954783869063912	CMakeFiles/Project1_TSP.dir/main.cpp.obj	88dabac3b962d217
+1160	1385	7954783871143596	Project1_TSP.exe	14de35fc8a232eba
+9	1065	7954792206015472	CMakeFiles/Project1_TSP.dir/main.cpp.obj	88dabac3b962d217
+1065	1258	7954792207808337	Project1_TSP.exe	14de35fc8a232eba
