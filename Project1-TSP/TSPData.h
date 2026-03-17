@@ -9,12 +9,13 @@ private:
 public:
     TSPData();
     ~TSPData();
-    void generateAsymetricData(int cities, int max);
+    void generateAsymetricData(int n, int max);
     void generateSymetricData(int cities, int max);
     void getDataFromFile(const std::string& fileName);
     void showData();
     void clearData();
-    int getCities();
+    int getCities() {return cities;}
+    int** getPaths() {return paths;}
 };
 
 

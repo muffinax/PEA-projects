@@ -9,8 +9,20 @@ class Algorithm{
 protected:
     int* finalPath;       //path of visited cities
     int length;           //sum of lengths between visited cities
-    long time;            //time
+    long long time;            //time
     int cities;           //cities
+
+    int calculatePathLength(TSPData& data, int* path){  //calculating cost
+        int cost = 0;
+        int** matrix = data.getPaths();
+
+        for (int i = 0; i < cities - 1; i++) {
+            cost += matrix[path[i]][path[i+1]];
+        }
+
+        cost += matrix[path[cities - 1]][path[0]];
+        return cost;
+    }
 
 public:
     Algorithm() {
@@ -21,10 +33,6 @@ public:
     }
 
     virtual ~Algorithm() {
-        clearResult();
-    }
-
-    virtual void clearResult(){
         if (finalPath != nullptr) {
             delete[] finalPath;
             finalPath = nullptr;
@@ -35,14 +43,14 @@ public:
     virtual void run(TSPData& data) = 0;
 
     virtual void showResult(){
-        std::cout<<"Result:"<<std::endl;
+        std::cout<<std::endl;
+        std::cout<<"Algorithm result:"<<std::endl;
 
         if (length == 0 || finalPath == nullptr) {
             std::cout<< std::endl << "No results. Try first running the algorithm" << std::endl;
             return;
         }
 
-        std::cout<<std::endl;
         std::cout<<"Optimal path: ";
         for (int i = 0; i < cities; i++) {
             std::cout << finalPath[i] << " -> ";

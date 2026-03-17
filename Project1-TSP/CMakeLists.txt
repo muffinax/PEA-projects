@@ -7,4 +7,6 @@ add_executable(Project1_TSP main.cpp
         TSPData.cpp
         TSPData.h
         Algorithm.h
+        RandomAlgorithm.h
+        RandomAlgorithm.cpp
 )

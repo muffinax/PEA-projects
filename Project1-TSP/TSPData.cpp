@@ -79,11 +79,11 @@ void TSPData::getDataFromFile(const string& fileName) {
     }
 }
 
-void TSPData::generateAsymetricData(int cities, int max){
+void TSPData::generateAsymetricData(int n, int max){    //n - cities
     //clearing data
     clearData();
     //Checking values
-    if(cities<=0){
+    if(n <= 0){
         cout<<"Error - cities <= 0"<<endl;
         return;
     }
@@ -91,14 +91,14 @@ void TSPData::generateAsymetricData(int cities, int max){
         cout<<"Error - max path value <= 0"<<endl;
         return;
     }
-    this->cities=cities;
+    this->cities=n;
     paths=new int*[cities];     //pointer array - memory allocation
 
-    for(int i=0; i<cities; i++) {
+    for(int i=0; i < cities; i++) {
         paths[i]= nullptr;
         paths[i] = new int[cities];     //memory allocation - for each row
 
-        for(int j=0; j<cities; j++){
+        for(int j=0; j < cities; j++){
             if(i!=j)    paths[i][j]=rand()%max+1;
             else    paths[i][j]=-1;
         }
@@ -149,5 +149,3 @@ void TSPData::clearData() {
     }
     cities=0;
 }
-
-int TSPData::getCities() {return cities;}

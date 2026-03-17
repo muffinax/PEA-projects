@@ -1,4 +1,14 @@
 # ninja log v5
-12	1286	7954813464091566	CMakeFiles/Project1_TSP.dir/TSPData.cpp.obj	7ea05498fd89f8b1
-5	1197	7954813463192979	CMakeFiles/Project1_TSP.dir/main.cpp.obj	88dabac3b962d217
-1287	1509	7954813466222276	Project1_TSP.exe	14de35fc8a232eba
+18	1456	7954862763874986	CMakeFiles/Project1_TSP.dir/TSPData.cpp.obj	7ea05498fd89f8b1
+5	1375	7954862763079876	CMakeFiles/Project1_TSP.dir/main.cpp.obj	88dabac3b962d217
+1456	1726	7954862766520038	Project1_TSP.exe	613c4de9eb3e95be
+12	1307	7954862762203730	CMakeFiles/Project1_TSP.dir/RandomAlgorithm.cpp.obj	e63ef51cecb524ed
+8	1734	7954906789943265	CMakeFiles/Project1_TSP.dir/main.cpp.obj	88dabac3b962d217
+23	1802	7954906790734955	CMakeFiles/Project1_TSP.dir/TSPData.cpp.obj	7ea05498fd89f8b1
+16	2908	7954906801842523	CMakeFiles/Project1_TSP.dir/RandomAlgorithm.cpp.obj	e63ef51cecb524ed
+2909	3317	7954906805563429	Project1_TSP.exe	613c4de9eb3e95be
+7	2380	7954910306939651	CMakeFiles/Project1_TSP.dir/RandomAlgorithm.cpp.obj	e63ef51cecb524ed
+2382	2588	7954910308953158	Project1_TSP.exe	613c4de9eb3e95be
+7	1859	7954910948082301	CMakeFiles/Project1_TSP.dir/main.cpp.obj	88dabac3b962d217
+15	4171	7954910970974008	CMakeFiles/Project1_TSP.dir/RandomAlgorithm.cpp.obj	e63ef51cecb524ed
+4172	5278	7954910981849911	Project1_TSP.exe	613c4de9eb3e95be
