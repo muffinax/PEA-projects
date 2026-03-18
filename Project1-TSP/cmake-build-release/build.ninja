@@ -73,6 +73,12 @@ build CMakeFiles/Project1_TSP.dir/BruteForceAlgorithm.cpp.obj: CXX_COMPILER__Pro
   OBJECT_DIR = CMakeFiles\Project1_TSP.dir
   OBJECT_FILE_DIR = CMakeFiles\Project1_TSP.dir
 
+build CMakeFiles/Project1_TSP.dir/NNAlgorithm.cpp.obj: CXX_COMPILER__Project1_TSP_unscanned_Release D$:/CLionProjects/PEA-projects/Project1-TSP/NNAlgorithm.cpp || cmake_object_order_depends_target_Project1_TSP
+  DEP_FILE = CMakeFiles\Project1_TSP.dir\NNAlgorithm.cpp.obj.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++23 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\Project1_TSP.dir
+  OBJECT_FILE_DIR = CMakeFiles\Project1_TSP.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Project1_TSP
@@ -81,7 +87,7 @@ build CMakeFiles/Project1_TSP.dir/BruteForceAlgorithm.cpp.obj: CXX_COMPILER__Pro
 #############################################
 # Link the executable Project1_TSP.exe
 
-build Project1_TSP.exe: CXX_EXECUTABLE_LINKER__Project1_TSP_Release CMakeFiles/Project1_TSP.dir/main.cpp.obj CMakeFiles/Project1_TSP.dir/TSPData.cpp.obj CMakeFiles/Project1_TSP.dir/RandomAlgorithm.cpp.obj CMakeFiles/Project1_TSP.dir/BruteForceAlgorithm.cpp.obj
+build Project1_TSP.exe: CXX_EXECUTABLE_LINKER__Project1_TSP_Release CMakeFiles/Project1_TSP.dir/main.cpp.obj CMakeFiles/Project1_TSP.dir/TSPData.cpp.obj CMakeFiles/Project1_TSP.dir/RandomAlgorithm.cpp.obj CMakeFiles/Project1_TSP.dir/BruteForceAlgorithm.cpp.obj CMakeFiles/Project1_TSP.dir/NNAlgorithm.cpp.obj
   FLAGS = -O3 -DNDEBUG
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Project1_TSP.dir

@@ -2,6 +2,7 @@
 #include "TSPData.h"
 #include "RandomAlgorithm.h"
 #include "BruteForceAlgorithm.h"
+#include "NNAlgorithm.h"
 
 using namespace std;
 int main() {
@@ -11,9 +12,17 @@ int main() {
     tspData.generateAsymetricData(10,105);
     tspData.showData();
 
-    BruteForceAlgorithm bfAlgorithm = BruteForceAlgorithm();
-    bfAlgorithm.run(tspData);
-    bfAlgorithm.showResult();
+//    BruteForceAlgorithm randomAlgorithm = BruteForceAlgorithm();
+//    randomAlgorithm.run(tspData);
+//    randomAlgorithm.showResult();
+
+//    RandomAlgorithm randomAlgorithm = RandomAlgorithm();
+//    randomAlgorithm.run(tspData);
+//    randomAlgorithm.showResult();
+
+    NNAlgorithm randomAlgorithm = NNAlgorithm();
+    randomAlgorithm.run(tspData);
+    randomAlgorithm.showResult();
 
     return 0;
 }
