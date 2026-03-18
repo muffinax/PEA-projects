@@ -1,6 +1,7 @@
 #include <iostream>
 #include "TSPData.h"
 #include "RandomAlgorithm.h"
+#include "BruteForceAlgorithm.h"
 
 using namespace std;
 int main() {
@@ -10,9 +11,9 @@ int main() {
     tspData.generateAsymetricData(10,105);
     tspData.showData();
 
-    RandomAlgorithm randomAlgorithm = RandomAlgorithm();
-    randomAlgorithm.run(tspData);
-    randomAlgorithm.showResult();
+    BruteForceAlgorithm bfAlgorithm = BruteForceAlgorithm();
+    bfAlgorithm.run(tspData);
+    bfAlgorithm.showResult();
 
     return 0;
 }

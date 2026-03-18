@@ -1,8 +1,6 @@
-#include <iostream>
 #include <chrono>
 #include <climits>
 #include "RandomAlgorithm.h"
-#include "Algorithm.h"
 
 using namespace std;
 using namespace std::chrono;
@@ -35,6 +33,7 @@ void RandomAlgorithm::run(TSPData& data) {
     }
     finalPath = new int[cities];
     length = INT_MAX;   //looking for smaller costs
+    time=0;
     int numberOfTries = 10 * cities;
 
     auto start = high_resolution_clock::now();     //starting time
@@ -50,8 +49,8 @@ void RandomAlgorithm::run(TSPData& data) {
         }
     }
 
-    auto end = high_resolution_clock::now();
-    auto duration = duration_cast<microseconds>(end - start);
+    auto end = high_resolution_clock::now();        //finish time
+    auto duration = duration_cast<microseconds>(end - start);   //calculating time
     time = duration.count();
 
 }

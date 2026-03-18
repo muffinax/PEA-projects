@@ -9,4 +9,6 @@ add_executable(Project1_TSP main.cpp
         Algorithm.h
         RandomAlgorithm.h
         RandomAlgorithm.cpp
+        BruteForceAlgorithm.h
+        BruteForceAlgorithm.cpp
 )

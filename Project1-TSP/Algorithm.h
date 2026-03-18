@@ -57,7 +57,7 @@ public:
         }
         std::cout << finalPath[0] << std::endl;
         std::cout<<"Length: "<<length<<std::endl;
-        std::cout<<"Time: "<<time <<"ns"<<std::endl;
+        std::cout<<"Time: "<<time <<" ns"<<std::endl;
         std::cout<<std::endl;
     }
 };
