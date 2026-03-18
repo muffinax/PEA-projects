@@ -5,8 +5,15 @@
 using namespace std;
 using namespace std::chrono;
 
-NNAlgorithm::NNAlgorithm() : Algorithm() {}
-NNAlgorithm::~NNAlgorithm() {}
+NNAlgorithm::NNAlgorithm() : Algorithm() {
+    visited= nullptr;
+}
+NNAlgorithm::~NNAlgorithm() {
+    if(visited != nullptr) {
+        delete[] visited;
+        visited = nullptr;
+    }
+}
 
 void NNAlgorithm::run(TSPData &data) {
     this->cities = data.getCities();
@@ -20,8 +27,8 @@ void NNAlgorithm::run(TSPData &data) {
     if (finalPath != nullptr) delete[] finalPath;
     finalPath = new int[cities];
 
-    //list of visited cities
-    bool* visited = new bool[cities];
+    if (visited != nullptr) delete[] visited;
+    visited = new bool[cities];
     for(int i = 0; i < cities; i++) {
         visited[i] = false;
     }
@@ -61,6 +68,4 @@ void NNAlgorithm::run(TSPData &data) {
     auto end = high_resolution_clock::now();        //finish time
     auto duration = duration_cast<microseconds>(end - start);   //calculating time
     time = duration.count();
-
-    delete[] visited;
 }

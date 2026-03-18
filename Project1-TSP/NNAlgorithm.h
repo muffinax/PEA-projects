@@ -4,6 +4,8 @@
 #include "Algorithm.h"
 
 class NNAlgorithm: public Algorithm {
+private:
+    bool* visited;  //list of visited cities
 public:
     NNAlgorithm();
     ~NNAlgorithm() override;

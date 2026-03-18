@@ -13,4 +13,6 @@ add_executable(Project1_TSP main.cpp
         BruteForceAlgorithm.cpp
         NNAlgorithm.h
         NNAlgorithm.cpp
+        RNNAlgorithm.h
+        RNNAlgorithm.cpp
 )
