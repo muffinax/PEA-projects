@@ -121,13 +121,13 @@ void runExperiments() {
     cout << "Average relative mistake for N=" << N << ":" << endl;
     cout << "NN: " << (sumErrNN / 100.0) * 100 << "%" << endl;
     cout << "RNN: " << (sumErrRNN / 100.0) * 100 << "%" << endl;
-    cout << "Random: " << (sumErrRand / 100.0) * 100 << "%" << endl;
+    cout << "Random: " << (sumErrRand / 100.00) * 100 << "%" << endl;
 
     cout << endl << "Average time for N=" << N << ":" << endl;
     cout << "BF: " << (double)timeBF / 100.0 << " microseconds" << endl;
     cout << "NN: " << (double)timeNN / 100.0 << " microseconds" << endl;
     cout << "RNN: " << (double)timeRNN / 100.0 << " microseconds" << endl;
-    cout << "Random: " << (double)timeRand / 100.0 << " microseconds" << endl;
+    cout << "Random: " << (double)timeRand / 100.00 << " microseconds" << endl;
 }
 
 int main() {
