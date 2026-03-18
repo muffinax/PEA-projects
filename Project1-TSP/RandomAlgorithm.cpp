@@ -6,6 +6,7 @@ using namespace std;
 using namespace std::chrono;
 RandomAlgorithm::RandomAlgorithm():Algorithm(){
     currentPath = nullptr;
+    numberOfTries = 0;
 }
 
 RandomAlgorithm::~RandomAlgorithm() {
@@ -21,6 +22,10 @@ void RandomAlgorithm::run(TSPData& data) {
         cout<<"Error - no cities to connect"<<endl;
         return;
     }
+    if (numberOfTries <= 0){
+        cout<<"Error - 0 tries = 0 results"<<endl;
+        return;
+    }
 
     //clearing old tables
     if (currentPath != nullptr) delete[] currentPath;
@@ -34,7 +39,6 @@ void RandomAlgorithm::run(TSPData& data) {
     finalPath = new int[cities];
     length = INT_MAX;   //looking for smaller costs
     time=0;
-    int numberOfTries = 10 * cities;
 
     auto start = high_resolution_clock::now();     //starting time
 

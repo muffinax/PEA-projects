@@ -32,7 +32,7 @@ void BruteForceAlgorithm::run(TSPData &data) {
         currentPath[i]=i;
     }
     finalPath = new int[cities];
-//    length = INT_MAX;
+    length = INT_MAX;
     time=0;
 
     int* position = new int[cities-1];    //It checks if there are more permutations

@@ -57,9 +57,12 @@ public:
         }
         std::cout << finalPath[0] << std::endl;
         std::cout<<"Length: "<<length<<std::endl;
-        std::cout<<"Time: "<<time <<" ns"<<std::endl;
+        std::cout<<"Time: "<<time <<" microseconds"<<std::endl;
         std::cout<<std::endl;
     }
+
+    int getLength() {return length;}
+    long long getTime() {return time;}
 };
 
 #endif //PROJECT1_TSP_ALGORITHM_H
