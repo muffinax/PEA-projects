@@ -1,0 +1,8 @@
+# ninja log v5
+1	2277	7956253031521586	CMakeFiles/Project1_TSP.dir/main.cpp.obj	f7232238a745d988
+21	2289	7956253031599149	CMakeFiles/Project1_TSP.dir/TSPData.cpp.obj	f4a8eee4de504cb2
+11	3822	7956253046809712	CMakeFiles/Project1_TSP.dir/RandomAlgorithm.cpp.obj	8dbdb7e8ad0e6954
+2282	7110	7956253079809062	CMakeFiles/Project1_TSP.dir/NNAlgorithm.cpp.obj	68f17070ff5ba8fb
+2289	7117	7956253079961191	CMakeFiles/Project1_TSP.dir/BruteForceAlgorithm.cpp.obj	8c5089074bb95f81
+3827	7977	7956253088654797	CMakeFiles/Project1_TSP.dir/RNNAlgorithm.cpp.obj	1eab10b3f006e78f
+7977	8938	7956253098143030	Project1_TSP.exe	9e4927a6aa53e012
