@@ -1,2 +1,2 @@
-# Translate_manufacturer_labels_for_allergens
+# PEA-projects
 University projects for Designing effective algorithms
