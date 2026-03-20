@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "d:/CLionProjects/PEA-projects/Project1-TSP/cmake-build-debug"
+			"value" : "d:/GitHub/CLionProjects/PEA-projects/Project1-TSP/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -575,7 +575,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "D:/CLionProjects/PEA-projects/Project1-TSP/cmake-build-debug/CMakeFiles/pkgRedirects"
+			"value" : "D:/GitHub/CLionProjects/PEA-projects/Project1-TSP/cmake-build-debug/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -647,7 +647,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "D:/CLionProjects/PEA-projects/Project1-TSP"
+			"value" : "D:/GitHub/CLionProjects/PEA-projects/Project1-TSP"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -1263,7 +1263,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "D:/CLionProjects/PEA-projects/Project1-TSP/cmake-build-debug"
+			"value" : "D:/GitHub/CLionProjects/PEA-projects/Project1-TSP/cmake-build-debug"
 		},
 		{
 			"name" : "Project1_TSP_IS_TOP_LEVEL",
@@ -1287,7 +1287,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "D:/CLionProjects/PEA-projects/Project1-TSP"
+			"value" : "D:/GitHub/CLionProjects/PEA-projects/Project1-TSP"
 		},
 		{
 			"name" : "_CMAKE_LINKER_PUSHPOP_STATE_SUPPORTED",
