@@ -1,0 +1,3 @@
+D:/GitHub/CLionProjects/PEA-projects/Project1-TSP/cmake-build-release/CMakeFiles/Project1_TSP.dir
+D:/GitHub/CLionProjects/PEA-projects/Project1-TSP/cmake-build-release/CMakeFiles/edit_cache.dir
+D:/GitHub/CLionProjects/PEA-projects/Project1-TSP/cmake-build-release/CMakeFiles/rebuild_cache.dir
