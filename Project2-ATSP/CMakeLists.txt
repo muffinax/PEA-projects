@@ -8,4 +8,7 @@ add_executable(Projekt2_ATSP main.cpp
         TSPData.cpp
         DFSAlgorithm.h
         DFSAlgorithm.cpp
-        Algorithm.h)
+        Algorithm.h
+        BFSAlgorithm.h
+        BFSAlgorithm.cpp
+        OpenList.h)

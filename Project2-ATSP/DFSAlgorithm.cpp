@@ -47,6 +47,7 @@ void DFSAlgorithm::dfsRecursive(TSPData& data, int currentCity, int currentCost,
 }
 
 void DFSAlgorithm::run(TSPData& data){
+    this->startingCity = 0;
     this->cities = data.getCities();
     if (cities <= 0){
         cout<<"Error - no cities to connect"<<endl;
@@ -61,7 +62,6 @@ void DFSAlgorithm::run(TSPData& data){
         visited[i] = false;
     }
     length = INT_MAX;
-    startingCity = 0;
     time=0;
 
     auto start = high_resolution_clock::now();     //starting time

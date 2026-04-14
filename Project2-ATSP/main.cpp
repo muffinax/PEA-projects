@@ -1,6 +1,7 @@
 #include <iostream>
 #include "TSPData.h"
 #include "DFSAlgorithm.h"
+#include "BFSAlgorithm.h"
 
 using namespace std;
 TSPData tspData = TSPData();
@@ -26,6 +27,7 @@ char menuAlgorythm(){
     cout << "RUN ALGORITHM"<<endl;
     cout<< "Choose algorithm to run:"<<endl;
     cout<<" 1 - DFS"<<endl;
+    cout<<" 2 - BFS"<<endl;
     cout<<" e - Back" << endl;
     cin>>x;
     return x;
@@ -53,12 +55,18 @@ void runDFS() {
     dfsAlgorithm.showResult();
 }
 
+void runBFS() {
+    BFSAlgorithm bfsAlgorithm = BFSAlgorithm();
+    bfsAlgorithm.run(tspData);
+    bfsAlgorithm.showResult();
+}
+
 void runExperiments() {
     int N;
     cout << "Enter number of cities: ";
     cin >> N;
 
-    long long timeDFS=0;
+    long long timeDFS=0, timeBFS=0;
 
     for(int i = 0; i < 100; i++) {
         tspData.generateAsymetricData(N, 100);
@@ -67,10 +75,15 @@ void runExperiments() {
         DFSAlgorithm dfs;
         dfs.run(tspData);
         timeDFS+=dfs.getTime();
+
+        // 1. BFS
+        BFSAlgorithm bfs;
+        bfs.run(tspData);
+        timeBFS+=bfs.getTime();
     }
 
     cout << endl << "Average time for N=" << N << ":" << endl;
-    cout << "BF: " << (double)timeDFS / 100.0 << " microseconds" << endl;
+    cout << "DFS: " << (double)timeDFS / 100.0 << " microseconds" << endl;
 }
 
 int main(){
@@ -92,6 +105,8 @@ int main(){
                     switch (alg) {
                         case '1':
                             runDFS(); break;
+                        case '2':
+                            runBFS(); break;
                         case 'e':
                             break;
                         default:
