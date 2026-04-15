@@ -88,8 +88,8 @@ void TSPData::generateAsymetricData(int n, int max){    //n - cities
         cout<<"Error - cities <= 0"<<endl;
         return;
     }
-    if(max<=0){
-        cout<<"Error - max path value <= 0"<<endl;
+    if(max<=10){
+        cout<<"Error - max path value <= 10"<<endl;
         return;
     }
     this->cities=n;
@@ -101,8 +101,9 @@ void TSPData::generateAsymetricData(int n, int max){    //n - cities
 
         for(int j=0; j < cities; j++){
             if(i!=j){
-                paths[i][j]=rand()%(max+1);
+                paths[i][j]=rand()%(max-8);
                 if(paths[i][j]==0)  paths[i][j]=-1;
+                else    paths[i][j]+=9;
             }
             else    paths[i][j]=-1;
         }

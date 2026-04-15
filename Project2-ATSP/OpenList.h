@@ -29,8 +29,11 @@ public:
     }
 
     ~OpenList() {
-        while (first != nullptr) {
-            pop(); //deleting elements using pop
+        while (!isEmpty()) {
+            TspState* state = pop();
+            delete[] state->path;
+            delete[] state->visited;
+            delete state;
         }
     }
 

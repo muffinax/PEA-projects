@@ -1,4 +1,4 @@
-#include "BFSAlgorithm.h"
+#include "LCAlgorithm.h"
 #include <climits>
 #include <chrono>
 
@@ -6,7 +6,7 @@ using namespace std;
 using namespace std::chrono;
 
 
-void BFSAlgorithm::run(TSPData& data){
+void LCAlgorithm::run(TSPData& data){
     this->startingCity = 0;
     this->cities = data.getCities();
     if (cities <= 0){
@@ -35,9 +35,9 @@ void BFSAlgorithm::run(TSPData& data){
     v->visited[startingCity] = true;
 
     // Root into the queue
-    openList.push(v);
+    priorityQueue.push(v);
 
-    while (!openList.isEmpty()) {
+    while (!priorityQueue.isEmpty()) {
         //Timer 5min!
         auto current_time = high_resolution_clock::now();
         auto elapsed_seconds = duration_cast<seconds>(current_time - start).count();
@@ -46,7 +46,7 @@ void BFSAlgorithm::run(TSPData& data){
             return;
         }
 
-        TspState* currentState=openList.pop();
+        TspState* currentState=priorityQueue.pop();
 
         //If it reached last point then adding cost from last to first point (if exists)
         if(currentState->visitedCount==cities){
@@ -81,7 +81,7 @@ void BFSAlgorithm::run(TSPData& data){
 
                     childState->path[childState->visitedCount - 1] = i;
                     childState->visited[i] = true;
-                    openList.push(childState);
+                    priorityQueue.push(childState);
                 }
             }
         }

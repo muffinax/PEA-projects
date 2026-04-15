@@ -2,6 +2,7 @@
 #include "TSPData.h"
 #include "DFSAlgorithm.h"
 #include "BFSAlgorithm.h"
+#include "LCAlgorithm.h"
 
 using namespace std;
 TSPData tspData = TSPData();
@@ -28,6 +29,7 @@ char menuAlgorythm(){
     cout<< "Choose algorithm to run:"<<endl;
     cout<<" 1 - DFS"<<endl;
     cout<<" 2 - BFS"<<endl;
+    cout<<" 3 - LC"<<endl;
     cout<<" e - Back" << endl;
     cin>>x;
     return x;
@@ -52,13 +54,22 @@ void generateData(){
 void runDFS() {
     DFSAlgorithm dfsAlgorithm = DFSAlgorithm();
     dfsAlgorithm.run(tspData);
+    cout<<"DFS";
     dfsAlgorithm.showResult();
 }
 
 void runBFS() {
     BFSAlgorithm bfsAlgorithm = BFSAlgorithm();
     bfsAlgorithm.run(tspData);
+    cout<<"BFS";
     bfsAlgorithm.showResult();
+}
+
+void runLC() {
+    LCAlgorithm lcAlgorithm = LCAlgorithm();
+    lcAlgorithm.run(tspData);
+    cout<<"LC";
+    lcAlgorithm.showResult();
 }
 
 void runExperiments() {
@@ -66,24 +77,53 @@ void runExperiments() {
     cout << "Enter number of cities: ";
     cin >> N;
 
-    long long timeDFS=0, timeBFS=0;
+    int nDFS=0, xDFS=0, nBFS=0, xBFS=0, nLC=0, xLC=0;
+    long long timeDFS=0, timeBFS=0, timeLC=0;
 
     for(int i = 0; i < 100; i++) {
-        tspData.generateAsymetricData(N, 100);
+        tspData.generateAsymetricData(N, 99);
 
         // 1. DFS
         DFSAlgorithm dfs;
         dfs.run(tspData);
-        timeDFS+=dfs.getTime();
+        if(dfs.getTime()!=-1){
+            timeDFS+=dfs.getTime();
+            nDFS++;
+        }
+        else    xDFS++;
 
-        // 1. BFS
+
+        // 2. BFS
         BFSAlgorithm bfs;
         bfs.run(tspData);
-        timeBFS+=bfs.getTime();
+        if(bfs.getTime()!=-1){
+            timeBFS+=bfs.getTime();
+            nBFS++;
+        }
+        else    xBFS++;
+
+        // 3. LC
+        LCAlgorithm lc;
+        lc.run(tspData);
+        if(lc.getTime()!=-1){
+            timeLC+=lc.getTime();
+            nLC++;
+        }
+        else    xLC++;
     }
 
+    cout << endl << "Percentage of stopped algorithms:" << endl;
+    cout << "DFS: " << xDFS << "%" << endl;
+    cout << "BFS: " << xBFS << "%" << endl;
+    cout << "LC: " << xLC << "%" << endl;
+
     cout << endl << "Average time for N=" << N << ":" << endl;
-    cout << "DFS: " << (double)timeDFS / 100.0 << " microseconds" << endl;
+    if (nDFS > 0)   cout << "DFS: " << (double)timeDFS / nDFS << " microseconds" << endl;
+    else cout<<"DFS: All tests took over 5 min"<<endl;
+    if (nBFS > 0)   cout << "BFS: " << (double)timeBFS / nBFS << " microseconds" << endl;
+    else cout<<"BFS: All tests took over 5 min"<<endl;
+    if (nLC > 0)    cout << "LC: " << (double)timeLC / nLC << " microseconds" << endl;
+    else cout<<"LC: All tests took over 5 min"<<endl;
 }
 
 int main(){
@@ -107,6 +147,8 @@ int main(){
                             runDFS(); break;
                         case '2':
                             runBFS(); break;
+                        case '3':
+                            runLC(); break;
                         case 'e':
                             break;
                         default:

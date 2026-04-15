@@ -1,11 +1,17 @@
 #include "DFSAlgorithm.h"
 #include <climits>
-#include <chrono>
 
 using namespace std;
 using namespace std::chrono;
 
 void DFSAlgorithm::dfsRecursive(TSPData& data, int currentCity, int currentCost, int visitedCount, int* currentPath, bool* visited){
+    auto current_time = high_resolution_clock::now();
+    auto elapsed_seconds = duration_cast<seconds>(current_time - startTimer).count();
+    if (elapsed_seconds >= 300) {
+        time = -1;
+        return;
+    }
+
     if (visitedCount == cities) {   //When visited all cities stop
 
         int returnCost = data.getCost(currentCity, startingCity);
@@ -23,9 +29,10 @@ void DFSAlgorithm::dfsRecursive(TSPData& data, int currentCity, int currentCost,
     }
     else{
         //OPTIMIZATION - If current cost is bigger than already found before then stop
-        if (currentCost >= length){
-            return;
-        }
+        if (currentCost >= length)  return;
+
+        //if time runs out stop
+        if (time == -1) return;
 
         for (int nextCity = 1; nextCity < cities; nextCity++){
 
@@ -64,16 +71,17 @@ void DFSAlgorithm::run(TSPData& data){
     length = INT_MAX;
     time=0;
 
-    auto start = high_resolution_clock::now();     //starting time
+    startTimer = high_resolution_clock::now();     //starting time
 
     visited[startingCity] = true;
     currentPath[0] = startingCity;
     dfsRecursive(data, startingCity, 0, 1, currentPath, visited);
 
     auto end = high_resolution_clock::now();        //finish time
-    auto duration = duration_cast<microseconds>(end - start);   //calculating time
-    time = duration.count();
-
+    auto duration = duration_cast<microseconds>(end - startTimer);   //calculating time
+    if (time != -1) {
+        time = duration.count();
+    }
     delete[] currentPath;
     delete[] visited;
 }
