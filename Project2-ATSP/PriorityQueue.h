@@ -1,7 +1,7 @@
 #ifndef PROJEKT2_ATSP_PRIORITYQUEUE_H
 #define PROJEKT2_ATSP_PRIORITYQUEUE_H
 
-#include "OpenList.h" // Pobieramy stąd definicje TspState i QueueNode
+#include "OpenList.h"
 
 class PriorityQueue {
 private:
