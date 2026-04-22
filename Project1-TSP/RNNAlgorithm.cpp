@@ -80,7 +80,7 @@ void RNNAlgorithm::repetition(TSPData &data, int begin) {
 
         //checking every city
         for(int j=0;j<cities;j++){
-            if(!visited[j] && map[currentCity][j]<=minDistance){
+            if(!visited[j] && map[currentCity][j]<minDistance){
                 nearestCity=j;
                 minDistance=map[currentCity][j];
             }
