@@ -16,4 +16,8 @@ add_executable(Projekt2_ATSP main.cpp
         OpenList.h
         PriorityQueue.h
         LCAlgorithm.cpp
-        LCAlgorithm.h)
+        LCAlgorithm.h
+        RNNAlgorithm.h
+        RNNAlgorithm.cpp
+        LowerBound.h
+        LowerBound.cpp)

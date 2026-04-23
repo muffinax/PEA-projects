@@ -68,6 +68,7 @@ public:
 
     int getLength() {return length;}
     long long getTime() {return time;}
+    int* getFinalPath() {return finalPath;}
 };
 
 #endif //PROJECT1_TSP_ALGORITHM_H
