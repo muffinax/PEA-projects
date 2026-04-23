@@ -4,27 +4,13 @@
 #include "TSPData.h"
 
 class LowerBound {
-private:
-    int** reducedMatrix;
-    int lowerBound;
-    int cities;
-    long long time;            //time
-
 public:
     LowerBound();
     ~LowerBound();
 
-    void countLowerBound(TSPData& data);
-    void clearData();
-
-    int getLowerBound(){return lowerBound;}
-    long long getTime() {return time;}
-    int getCost(int from, int to) {
-        if(from >= 0 && from < cities && to >= 0 && to < cities) {
-            return reducedMatrix[from][to];
-        }
-        return -1;
-    }
+    int calculateLowerBound(int** matrix, int cities);
+    int reduceLowerBound(int** reducedMatrix, int cities, int from, int to, int startCity);
+    int** copyMatrix(int** source, int cities);
 
 };
 

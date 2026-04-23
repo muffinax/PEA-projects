@@ -1,85 +1,102 @@
 #include <iostream>
+#include <climits>
 #include "LowerBound.h"
+
 using namespace std;
 
 LowerBound::LowerBound() {
-    this->cities=0;
-    this->reducedMatrix= nullptr;
-    this->time=0;
-    this->lowerBound=0;
 }
 
 LowerBound::~LowerBound() {
-    clearData();
 }
 
-void LowerBound::countLowerBound(TSPData &data) {
-    clearData();
-    this->cities=data.getCities();
-    if (cities <= 0){
-        cout<<"Error - no cities"<<endl;
-        return;
+int LowerBound::calculateLowerBound(int** reducedMatrix, int cities) {
+    int lowerBound = 0;
+
+    // reducing in rows
+    for(int i = 0; i < cities; i++){
+        int min = INT_MAX;
+        for(int j = 0; j < cities; j++){
+            if(reducedMatrix[i][j] < min) min = reducedMatrix[i][j];
+        }
+
+        if(min != INT_MAX && min > 0) {
+            for(int j = 0; j < cities; j++){
+                if(reducedMatrix[i][j] != INT_MAX) reducedMatrix[i][j] -= min;
+            }
+            lowerBound += min;
+        }
     }
 
-    this->reducedMatrix = new int*[cities];
+    // reducing in columns
+    for(int i = 0; i < cities; i++){
+        int min = INT_MAX;
+        for(int j = 0; j < cities; j++){
+            if(reducedMatrix[j][i] < min) min = reducedMatrix[j][i];
+        }
+
+        if(min != INT_MAX && min > 0) {
+            for(int j = 0; j < cities; j++){
+                if(reducedMatrix[j][i] != INT_MAX) reducedMatrix[j][i] -= min;
+            }
+            lowerBound += min;
+        }
+    }
+    return lowerBound;
+}
+
+int LowerBound::reduceLowerBound(int **reducedMatrix, int cities, int from, int to, int startCity) {
+    int lowerBound = 0;
+
+    // prevents going back
+    reducedMatrix[to][startCity] = INT_MAX;
+
+    // Erasing path visited
     for (int i = 0; i < cities; i++) {
-        this->reducedMatrix[i] = new int[cities]; // Memory allocation
-        for (int j = 0; j < cities; j++) {
-            if(data.getCost(i,j) == -1 || i == j)   reducedMatrix[i][j] = INT_MAX;
-            else    this->reducedMatrix[i][j] = data.getCost(i,j);
-        }
+        reducedMatrix[from][i] = INT_MAX;
+        reducedMatrix[i][to] = INT_MAX;
     }
 
-
-    //reducing in rows
-    for(int i=0;i<cities;i++){
-        int min=INT_MAX;
-        for(int j=0;j<cities;j++){
-            if(reducedMatrix[i][j]<min && reducedMatrix[i][j]>=0) min=reducedMatrix[i][j];
-        }
-        if(min==INT_MAX){
-            cout<<"Error - path doesn't exist" << endl;
-            return;
+    // Again reducing rows
+    for(int i = 0; i < cities; i++){
+        int min = INT_MAX;
+        for(int j = 0; j < cities; j++){
+            if(reducedMatrix[i][j] < min) min = reducedMatrix[i][j];
         }
 
-        if(min > 0) {
-            for(int j=0;j<cities;j++){
-                if(reducedMatrix[i][j]<INT_MAX) reducedMatrix[i][j]-=min;
+        if(min != INT_MAX && min > 0) {
+            for(int j = 0; j < cities; j++){
+                if(reducedMatrix[i][j] != INT_MAX) reducedMatrix[i][j] -= min;
             }
-            lowerBound+=min;
+            lowerBound += min;
         }
     }
 
-    //reducing in columns
-    for(int i=0;i<cities;i++){
-        int min=INT_MAX;
-        for(int j=0;j<cities;j++){
-            if(reducedMatrix[j][i]<min && reducedMatrix[j][i]>=0) min=reducedMatrix[j][i];
-        }
-        if(min==INT_MAX){
-            cout<<"Error - path doesn't exist" << endl;
-            return;
+    // reducing in columns
+    for(int i = 0; i < cities; i++){
+        int min = INT_MAX;
+        for(int j = 0; j < cities; j++){
+            if(reducedMatrix[j][i] < min) min = reducedMatrix[j][i];
         }
 
-        if(min > 0) {
-            for(int j=0;j<cities;j++){
-                if(reducedMatrix[j][i]<INT_MAX) reducedMatrix[j][i]-=min;
+        if(min != INT_MAX && min > 0) {
+            for(int j = 0; j < cities; j++){
+                if(reducedMatrix[j][i] != INT_MAX) reducedMatrix[j][i] -= min;
             }
-            lowerBound+=min;
+            lowerBound += min;
         }
-
     }
+
+    return lowerBound;
 }
 
-void LowerBound::clearData() {
-    if(reducedMatrix != nullptr){
-        for (int i = 0; i < cities; i++) {
-            delete[] reducedMatrix[i];
+int** LowerBound::copyMatrix(int** source, int cities) {
+    int** dest = new int*[cities];
+    for (int i = 0; i < cities; i++) {
+        dest[i] = new int[cities];
+        for (int j = 0; j < cities; j++) {
+            dest[i][j] = source[i][j];
         }
-        delete[] reducedMatrix;
-        reducedMatrix = nullptr;
     }
-    cities=0;
-    lowerBound=0;
-    time=0;
+    return dest;
 }
