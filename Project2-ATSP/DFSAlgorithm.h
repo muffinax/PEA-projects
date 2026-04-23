@@ -3,15 +3,11 @@
 
 #include <chrono>
 #include "Algorithm.h"
+#include "LowerBound.h"
 
 class DFSAlgorithm : public Algorithm{
 private:
     int startingCity;
-    std::chrono::time_point<std::chrono::high_resolution_clock> startTimer;
-
-    // Recursive function
-    void dfsRecursive(TSPData& data, int currentCity, int currentCost, int visitedCount, int* currentPath, bool* visited);
-
 public:
     DFSAlgorithm(){}
     ~DFSAlgorithm() override{}
