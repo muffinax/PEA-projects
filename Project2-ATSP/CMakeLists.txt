@@ -14,10 +14,11 @@ add_executable(Projekt2_ATSP main.cpp
         BFSAlgorithm.h
         BFSAlgorithm.cpp
         OpenList.h
-        PriorityQueue.h
         LCAlgorithm.cpp
         LCAlgorithm.h
         RNNAlgorithm.h
         RNNAlgorithm.cpp
         LowerBound.h
-        LowerBound.cpp)
+        LowerBound.cpp
+        NodeState.h
+        BaseQueue.h)
