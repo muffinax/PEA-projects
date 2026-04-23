@@ -1,48 +1,37 @@
-#ifndef PROJEKT2_ATSP_OPENLIST_H
-#define PROJEKT2_ATSP_OPENLIST_H
+#ifndef PROJEKT2_ATSP_CONTAINERS_H
+#define PROJEKT2_ATSP_CONTAINERS_H
 
-//state struct
-struct TspState {
-    int currentCity;
-    int currentCost;
-    int visitedCount;
-    int* path;
-    bool* visited;
-};
+#include "NodeState.h"
+#include "BaseQueue.h"
 
-//Pointers struct
-struct Node {
-    TspState* state;
-    Node* next;
-};
-
-class OpenList{
-private:
-    Node* first;
-    Node* last;
-    int size;
+class DFSStack : public BaseQueue {
 public:
-    OpenList(){
-        first= nullptr;
-        last= nullptr;
-        size=0;
-    }
+    // pushing state at the beginging
+    void push(TspState* newState) override {
+        Node* newNode = new Node;
 
-    ~OpenList() {
-        while (!isEmpty()) {
-            TspState* state = pop();
-            delete[] state->path;
-            delete[] state->visited;
-            delete state;
-        }
-    }
+        newNode->state = newState;
+        newNode->next = first;
 
-    //adding new state to the end of queue
-    void push(TspState* newState){
+        first = newNode;
+        size++;
+    }
+};
+
+class BFSQueue : public BaseQueue {
+private:
+    Node* last;     //Node at the end
+
+public:
+    BFSQueue() : BaseQueue(), last(nullptr) {}
+
+    void push(TspState* newState) override {
+        //New state goes to the end of queue
         Node* newNode = new Node;
         newNode->state = newState;
         newNode->next = nullptr;
 
+        //if empty
         if (first == nullptr) {
             first = newNode;
             last = newNode;
@@ -52,32 +41,34 @@ public:
         }
         size++;
     }
+};
 
-    //taking out first state from queue
-    TspState*  pop(){
-        if (first== nullptr) return nullptr;
+class PriorityQueue : public BaseQueue {
+public:
+    void push(TspState* newState) override {
+        Node* newNode = new Node;
+        newNode->state = newState;
+        newNode->next = nullptr;
+        size++;
 
-        Node* tmp = first;
-        TspState* result=first->state;
-
-        first = first->next;
-        if (first == nullptr) {
-            last = nullptr;
+        //if empty of if current LB is the lowest - add at beginning of queue
+        if (first == nullptr || newState->currentLB < first->state->currentLB) {
+            newNode->next = first;
+            first = newNode;
+            return;
         }
 
-        delete tmp;
-        size--;
+        Node* current = first;
+        Node* prev = nullptr;
+        //looking fwhere to place new Node
+        while (current != nullptr && current->state->currentLB <= newState->currentLB) {
+            prev = current;
+            current = current->next;
+        }
 
-        return result;
-    }
-
-    bool isEmpty() {
-        return first == nullptr;
-    }
-
-    int get_size() {
-        return size;
+        newNode->next = current;
+        prev->next = newNode;
     }
 };
 
-#endif //PROJEKT2_ATSP_OPENLIST_H
+#endif //PROJEKT2_ATSP_CONTAINERS_H
