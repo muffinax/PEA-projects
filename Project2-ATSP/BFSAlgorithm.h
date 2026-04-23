@@ -7,7 +7,6 @@
 class BFSAlgorithm: public Algorithm {
 private:
     int startingCity;
-    OpenList openList;
 
 public:
     BFSAlgorithm(){}
