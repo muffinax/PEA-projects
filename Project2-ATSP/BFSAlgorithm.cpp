@@ -168,6 +168,19 @@ void BFSAlgorithm::run(TSPData& data){
         delete[] currentState->path;
         delete[] currentState->visited;
         delete currentState;
+
+        //if overtime - clear
+        if (time == -1) {
+            while(!openList.isEmpty()){
+                TspState* leftover = openList.pop();
+                for(int i = 0; i < cities; i++) delete[] leftover->matrix[i];
+                delete[] leftover->matrix;
+                delete[] leftover->path;
+                delete[] leftover->visited;
+                delete leftover;
+            }
+
+        }
     }
 
     auto end = high_resolution_clock::now();        //finish time
