@@ -205,23 +205,29 @@ void change_parameters(){
             def_L=true;
         }
         else if(choice == 'n' || choice == 'N'){
-            int temL;
-            double temT, temA;
-            cout << "Set T: ";
-            cin>>temT;
-            cout << "Set alpha: ";
-            cin>>temA;
-            cout << "Set L: ";
-            cin>>temL;
+            cout << "Choose parameter to change1:" << endl << endl;
+            cout << " T - T[0]" << endl << " L - L[0]" << endl << " A - alpha" << endl << endl;
+            cin>>choice;
 
-            if(temT>0 && temL>0 && temA>0 && temA<1){
-                saAlg.set_T(temT);
-                saAlg.set_alpha(temA);
-                saAlg.set_L(temL);
-                def_L=false;
-                cout << "Parameters saved!"<<endl;
+            if(choice == 't' || choice == 'T') {
+                double temT;
+                cin>>temT;
+                if(temT>0) saAlg.set_T(temT);
+                else cout << "Wrong value!"<<endl;
             }
-            else cout << "Wrong parameters!"<<endl;
+            else if(choice == 'a' || choice == 'A') {
+                double temA;
+                cin >> temA;
+                if(temA>0 && temA<1) saAlg.set_T(temA);
+                else cout << "Wrong value!"<<endl;
+            }
+            else if(choice == 'l' || choice == 'L') {
+                int temL;
+                cin >> temL;
+                if(temL > 0) saAlg.set_T(temL);
+                else cout << "Wrong value!"<<endl;
+            }
+            else    cout << "Chose one of the options!" << endl;
         }
         else    cout << "Chose YES or NO!" << endl;
 
