@@ -218,13 +218,13 @@ void change_parameters(){
             else if(choice == 'a' || choice == 'A') {
                 double temA;
                 cin >> temA;
-                if(temA>0 && temA<1) saAlg.set_T(temA);
+                if(temA>0 && temA<1) saAlg.set_alpha(temA);
                 else cout << "Wrong value!"<<endl;
             }
             else if(choice == 'l' || choice == 'L') {
                 int temL;
                 cin >> temL;
-                if(temL > 0) saAlg.set_T(temL);
+                if(temL > 0) saAlg.set_L(temL);
                 else cout << "Wrong value!"<<endl;
             }
             else    cout << "Chose one of the options!" << endl;
