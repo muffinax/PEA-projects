@@ -32,15 +32,17 @@ public:
     void clear();
 
     void randStartingPath(TSPData& data);
-    void nearestStartingPath(TSPData& data);
+    void minNearestStartingPath(TSPData& data);
+    void maxNearestStartingPath(TSPData& data);
 
     int calculateTransformations(int cit);
+    double calculateInitialTemperature(TSPData& data);
 
     void set_maxTime(long long mt) { maxTime = mt; }
     void set_alpha(double a) { alpha = a; }
     void set_T(double t) { this->t = t; }
     void set_L(int l) { this->l = l; }
-    void set_default();
+    void set_default(TSPData& data);
 
     int* get_finalPath(){return finalPath;}
     int* get_startingPath(){return startingPath;}

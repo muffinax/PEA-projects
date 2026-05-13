@@ -157,13 +157,14 @@ void calculate_startingPath(){
 
     char choice;
     cout << "How do you want starting path generated? " << endl << endl;
-    cout << " 1 - random" << endl << " 2 - nearest neighbour" << endl << endl;
+    cout << " 1 - random" << endl << " 2 - min nearest neighbour" << endl << " 3 - max nearest neighbour" << endl << endl;
 
     cin>>choice;
     if(choice == '1')   saAlg.randStartingPath(tspData);
-    else if(choice == '2') saAlg.nearestStartingPath(tspData);
+    else if(choice == '2') saAlg.minNearestStartingPath(tspData);
+    else if(choice == '3') saAlg.maxNearestStartingPath(tspData);
     else{
-        cout << "Chose YES or NO!" << endl;
+        cout << "Chose 1-3!" << endl;
         return;
     }
 
@@ -200,7 +201,7 @@ void change_parameters(){
         cin>>choice;
 
         if(choice == 'y' || choice == 'Y'){
-            saAlg.set_default();
+            saAlg.set_default(tspData);
             def_L=true;
         }
         else if(choice == 'n' || choice == 'N'){

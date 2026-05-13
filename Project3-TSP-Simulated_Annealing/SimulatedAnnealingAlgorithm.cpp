@@ -17,7 +17,7 @@ SimulatedAnnealingAlgorithm::SimulatedAnnealingAlgorithm(){
     finalLength=0;
     startingLength=0;
 
-    t = 1000;
+    t = 0;
     alpha = 0.99;
     l = 0;
 
@@ -29,11 +29,17 @@ SimulatedAnnealingAlgorithm::~SimulatedAnnealingAlgorithm() {
     clear();
 }
 
-void SimulatedAnnealingAlgorithm::set_default(){
-    t = 1000;
+void SimulatedAnnealingAlgorithm::set_default(TSPData& data){
+    t = 100000;
     alpha=0.99;
-    if(cities>0)    l = calculateTransformations(cities);
-    else l = 0;
+    if(cities>0) {
+        l = calculateTransformations(data.getCities());
+        t = calculateInitialTemperature(data);
+    }
+    else {
+        l = 0;
+        t=0;
+    }
 }
 
 void SimulatedAnnealingAlgorithm::run(TSPData& data) {
@@ -43,7 +49,8 @@ void SimulatedAnnealingAlgorithm::run(TSPData& data) {
         return;
     }
 
-    if (l <= 0)    l = calculateTransformations(cities);
+    if (t <= 0)     t = calculateInitialTemperature(data);
+    if (l <= 0)     l = calculateTransformations(cities);
 
     if (startingPath == nullptr) {
         randStartingPath(data);
@@ -158,7 +165,7 @@ void SimulatedAnnealingAlgorithm::randStartingPath(TSPData& data) {
     startingLength= calculatePathLength(data, startingPath);
 }
 
-void SimulatedAnnealingAlgorithm::nearestStartingPath(TSPData& data){
+void SimulatedAnnealingAlgorithm::minNearestStartingPath(TSPData& data){
     this->cities = data.getCities();
     if(cities<=0){
         cout<<"Error - no cities to connect"<<endl;
@@ -205,6 +212,70 @@ void SimulatedAnnealingAlgorithm::nearestStartingPath(TSPData& data){
         }
         length += map[currentCity][i];
         if(length<startingLength){
+            startingLength = length;
+            for(int k = 0; k < cities; k++){
+                startingPath[k] = currentPath[k];
+            }
+        }
+    }
+    delete[] visited;
+}
+
+void SimulatedAnnealingAlgorithm::maxNearestStartingPath(TSPData& data){
+    this->cities = data.getCities();
+    if(cities<=0){
+        cout<<"Error - no cities to connect"<<endl;
+        return;
+    }
+
+    if (startingPath != nullptr) delete[] startingPath;
+    startingPath = new int[cities];
+    startingLength = -1;
+
+    if (currentPath != nullptr) delete[] currentPath;
+    currentPath = new int[cities];
+
+    int** map = data.getPaths();
+    bool* visited = new bool[cities];
+
+    length=0;
+
+    for (int i = 0; i < cities; i++){
+        for(int k = 0; k < cities; k++) {
+            visited[k] = false;
+        }
+
+        int currentCity = i;
+        visited[i] = true;
+        currentPath[0] = currentCity;
+        length=0;
+
+        for (int step=1;step<cities;step++){
+            //seting min value
+            int nearestCity = -1;
+            int maxDistance = -1;
+
+            for(int j=0;j<cities;j++){
+                if(!visited[j] && map[currentCity][j] > maxDistance){
+                    if(map[0][0]!=0){
+                        if(map[currentCity][j] < map[0][0]){
+                            nearestCity=j;
+                            maxDistance=map[currentCity][j];
+                        }
+                    }
+                    else{
+                        nearestCity=j;
+                        maxDistance=map[currentCity][j];
+                    }
+                }
+            }
+            length += maxDistance;
+            currentCity=nearestCity;
+            visited[nearestCity]=true;
+            currentPath[step]=currentCity;
+        }
+        length += map[currentCity][i];
+        if(length>startingLength){
             startingLength = length;
             for(int k = 0; k < cities; k++){
                 startingPath[k] = currentPath[k];
@@ -270,4 +341,31 @@ void SimulatedAnnealingAlgorithm::clear() {
     length = 0;
     finalLength = 0;
     startingLength = 0;
+}
+
+double SimulatedAnnealingAlgorithm::calculateInitialTemperature(TSPData& data) {
+    int maxEdge = 0;
+    int minEdge = INT_MAX;
+    int** matrix = data.getPaths();
+
+    for(int i = 0; i < cities; i++) {
+        for(int j = 0; j < cities; j++) {
+            // looking for max and min value
+            if(i != j) {
+                if(matrix[i][j] > maxEdge) {
+                    maxEdge = matrix[i][j];
+                }
+                if(matrix[i][j] < minEdge) {
+                    minEdge = matrix[i][j];
+                }
+            }
+        }
+    }
+
+    //When all values are 0
+    if (maxEdge == minEdge) {
+        return 100.0;
+    }
+
+    return 100.0 * (maxEdge - minEdge);
 }
