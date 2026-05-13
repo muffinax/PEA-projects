@@ -1,11 +1,21 @@
 #include <iostream>
+#include <fstream>
 #include "TSPData.h"
 #include "SimulatedAnnealingAlgorithm.h"
 
 using namespace std;
+
+struct Result{
+    string filename;
+    int path;
+};
+
 TSPData tspData = TSPData();
 SimulatedAnnealingAlgorithm saAlg = SimulatedAnnealingAlgorithm();
 bool def_L = true;  //is L default
+string filename;    //data file
+string resultfile="sol-ATSP.txt";
+Result resultList[30];
 
 char menu(){
     char x;
@@ -23,12 +33,43 @@ char menu(){
     return x;
 }
 
+void openResult(){
+//    cout<<"Enter path to file with solutions: ";
+//    cin>>resultfile;
+
+    ifstream reader(resultfile);  //opening file
+
+    if (!reader.is_open()) {
+        cout << "Error - file " << resultfile << " doesn't exist" << endl;
+        return;
+    }
+
+    string line;
+    int index = 0;
+
+    while(getline(reader, line)){
+        char fil[50];
+        int result;
+        if(sscanf(line.c_str(), " %[^:]: %d", &fil, &result) == 2 ){
+            resultList[index].filename = fil;
+            resultList[index].path = result;
+            index++;
+
+            if (index >= 30) break;
+        }
+    }
+    cout << "Successfully loaded " << index << " optimal results!" << endl;
+    reader.close();
+}
+
 void openFile(){
-    string filename;
     cout<<"Enter file name: ";
     cin>>filename;
     tspData.getDataFromFile(filename);
-    if(tspData.getCities()>0)   saAlg.set_L(saAlg.calculateTransformations(tspData.getCities()));
+    if(tspData.getCities()>0){
+        saAlg.clear();
+        saAlg.set_L(saAlg.calculateTransformations(tspData.getCities()));
+    }
 }
 
 void showPath(int* path , int length, int cities){
@@ -53,6 +94,42 @@ void showResult(){
 
     cout << "Time: " << saAlg.get_time() << " microseconds" << endl;
     cout<<endl;
+
+    //Optimal result:
+    if (filename != "") {
+        string baseName = filename;
+
+        //Preparing filename
+        //cutting path/folders
+        size_t slashPos = baseName.find_last_of("/\\");
+        if (slashPos != string::npos) {
+            baseName = baseName.substr(slashPos + 1);
+        }
+
+        // cutting .atsp
+        size_t dotPos = baseName.find_last_of('.');
+        if (dotPos != string::npos) {
+            baseName = baseName.substr(0, dotPos);
+        }
+
+        //searching matching name
+        int bestKnown = -1;
+        for (int i = 0; i < 30; i++) {
+            if (resultList[i].filename != "" && resultList[i].filename == baseName) {
+                bestKnown = resultList[i].path;
+                break;
+            }
+        }
+
+        if (bestKnown != -1) {
+            cout << "Best known solution: " << bestKnown << endl;
+
+            int myResult = saAlg.get_finalLength();
+            double error = ((double)(myResult - bestKnown) / bestKnown) * 100.0;
+
+            cout << "Error (PRD): " << error << " %" << endl;
+        }
+    }
 }
 
 void change_maxTime(){
@@ -154,6 +231,7 @@ void change_parameters(){
 
 int main() {
     srand(time(NULL));
+    openResult();
     char choice;
     while(true){
         choice = menu();

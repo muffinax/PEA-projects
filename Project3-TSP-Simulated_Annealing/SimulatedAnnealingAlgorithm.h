@@ -24,11 +24,12 @@ private:
 
     double calculatingCoolingRate(double tk);
     int calculatePathLength(TSPData& data, int* path);
-    void generateNeighbor();
+    void generateNeighbor(int* path);
 public:
     SimulatedAnnealingAlgorithm();
     ~SimulatedAnnealingAlgorithm();
     void run(TSPData& data);
+    void clear();
 
     void randStartingPath(TSPData& data);
     void nearestStartingPath(TSPData& data);
