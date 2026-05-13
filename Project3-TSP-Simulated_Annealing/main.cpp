@@ -205,26 +205,32 @@ void change_parameters(){
             def_L=true;
         }
         else if(choice == 'n' || choice == 'N'){
-            cout << "Choose parameter to change1:" << endl << endl;
+            cout << "Choose parameter to change:" << endl << endl;
             cout << " T - T[0]" << endl << " L - L[0]" << endl << " A - alpha" << endl << endl;
             cin>>choice;
 
             if(choice == 't' || choice == 'T') {
                 double temT;
+                cout << "Enter new T: ";
                 cin>>temT;
                 if(temT>0) saAlg.set_T(temT);
                 else cout << "Wrong value!"<<endl;
             }
             else if(choice == 'a' || choice == 'A') {
                 double temA;
+                cout << "Enter new alpha: ";
                 cin >> temA;
                 if(temA>0 && temA<1) saAlg.set_alpha(temA);
                 else cout << "Wrong value!"<<endl;
             }
             else if(choice == 'l' || choice == 'L') {
                 int temL;
+                cout << "Enter new L: ";
                 cin >> temL;
-                if(temL > 0) saAlg.set_L(temL);
+                if(temL > 0) {
+                    saAlg.set_L(temL);
+                    def_L=false;
+                }
                 else cout << "Wrong value!"<<endl;
             }
             else    cout << "Chose one of the options!" << endl;
