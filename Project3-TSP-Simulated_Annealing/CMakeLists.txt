@@ -6,5 +6,5 @@ set(CMAKE_CXX_STANDARD 23)
 add_executable(Project3_TSA_Tabu_Search main.cpp
         TSPData.h
         TSPData.cpp
-        TabuSearchAlgorithm.h
-        TabuSearchAlgorithm.cpp)
+        SimulatedAnnealingAlgorithm.h
+        SimulatedAnnealingAlgorithm.cpp)
