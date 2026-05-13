@@ -1,6 +1,7 @@
 #include "TSPData.h"
 #include <iostream>
 #include <fstream>
+#include <cstdio>
 using namespace std;
 
 TSPData::TSPData() {
@@ -33,81 +34,53 @@ void TSPData::showData() {
 void TSPData::getDataFromFile(const string& fileName) {
     clearData();    //clearing data before saving new
     ifstream reader(fileName);  //opening file
+    bool matrixSectionFound = false;    //checking if header ended
 
-    if(reader.is_open()){
-        if (!(reader >> cities)) {      //checking cities value
-            cout<<"Error - wrong data format" << endl;
-            reader.close();
-            return;
+    if (!reader.is_open()) {
+        cout << "Error - file " << fileName << " doesn't exist" << endl;
+        return;
+    }
+
+    string line;
+    cities = 0;
+
+    while(getline(reader, line)){
+        int val;
+        if(sscanf(line.c_str(), "DIMENSION: %d", &val) == 1 || sscanf(line.c_str(), "DIMENSION : %d", &val) == 1)    cities=val;
+        if (line.find("EDGE_WEIGHT_SECTION") != string::npos) {
+            matrixSectionFound = true;
+            break;
         }
+    }
 
-        //pointer array - memory allocation
-        paths=new int*[cities];
-        for(int k = 0; k < cities; k++) paths[k] = nullptr;
-
-        for(int i=0; i<cities; i++){
-            paths[i] = new int[cities];     //memory allocation - for each row
-
-            for(int j=0; j<cities; j++){
-
-                if(!(reader>>paths[i][j])){   //saving values to paths
-                    cout<<"Error - wrong data format" << endl;
-                    clearData(); // clearing saved data
-                    reader.close();
-                    return;
-                }
-
-                //CHECKING SAVED VALUES
-                if(i==j && paths[i][j]!=-1){    //values in [i][i] must be -1
-                    cout<<"WRONG value in [" << i <<"]["<<j<<"] - values on the diagonal must be -1"<<endl;
-                    clearData(); // clearing saved data
-                    reader.close();
-                    return;
-                } else if(i!=j && paths[i][j]<=0 && paths[i][j]!=-1){    //paths must be > 0
-                    cout<<"WRONG value in [" << i <<"]["<<j<<"] - paths must be greater than zero or -1"<<endl;
-                    clearData(); // clearing saved data
-                    reader.close();
-                    return;
-                }
-            }
-        }
-
-        cout<<"TSPData successfully saved!" << endl;
+    //checking if file format is good
+    if (!matrixSectionFound || cities <= 0) {
+        cout << "Error - wrong ATSP file format (missing DIMENSION or EDGE_WEIGHT_SECTION)" << endl;
         reader.close();
-    }
-    else{       //file never opened
-        cout<<"Error - file " << fileName << " doesn't exist"<<endl;
-    }
-}
-
-void TSPData::generateAsymetricData(int n, int max){    //n - cities
-    //clearing data
-    clearData();
-    //Checking values
-    if(n <= 0){
-        cout<<"Error - cities <= 0"<<endl;
         return;
     }
-    if(max<=10){
-        cout<<"Error - max path value <= 10"<<endl;
-        return;
+
+    paths = new int*[cities];
+    for (int i = 0; i < cities; i++) {
+        paths[i] = nullptr;
     }
-    this->cities=n;
-    paths=new int*[cities];     //pointer array - memory allocation
 
-    for(int i=0; i < cities; i++) {
-        paths[i]= nullptr;
-        paths[i] = new int[cities];     //memory allocation - for each row
+    //getting matrix data
+    for (int i = 0; i < cities; i++) {
+        paths[i] = new int[cities];
 
-        for(int j=0; j < cities; j++){
-            if(i!=j){
-                paths[i][j]=rand()%(max-8);
-                if(paths[i][j]==0)  paths[i][j]=-1;
-                else    paths[i][j]+=9;
+        for (int j = 0; j < cities; j++) {
+            if (!(reader >> paths[i][j])) {
+                cout << "Error - wrong data format in matrix" << endl;
+                clearData();
+                reader.close();
+                return;
             }
-            else    paths[i][j]=-1;
         }
     }
+
+    cout<<"TSPData successfully saved!" << endl;
+    reader.close();
 }
 
 //clears data

@@ -4,6 +4,7 @@ project(Project3_TSA_Tabu_Search)
 set(CMAKE_CXX_STANDARD 23)
 
 add_executable(Project3_TSA_Tabu_Search main.cpp
-        Algorithm.h
         TSPData.h
-        TSPData.cpp)
+        TSPData.cpp
+        TabuSearchAlgorithm.h
+        TabuSearchAlgorithm.cpp)
